@@ -13,7 +13,6 @@ bool isMoveOperation = false;
 
 List<List<char>> stacks = null;
 
-int nbMoves = 0;
 
 foreach(var line in lines)
 {
@@ -30,7 +29,6 @@ foreach(var line in lines)
 
         Move(qty, from, to);
         //Move2(qty, from, to);
-        nbMoves++;
     }
     else
     {
@@ -45,6 +43,7 @@ foreach(var line in lines)
         // is still in setup
         if (stacks == null)
         {
+            // initialization
             stacks = new List<List<char>>();
             for (int i = 0; i < (line.Length + 1) / 4; i++)
             {
@@ -130,14 +129,14 @@ void Print()
             }
             else
             {
-                Console.Write("[" + s[i] + "] ");
+                Console.Write($"[{s[i]}] ");
             }
         }
         Console.Write("\n");
     }
     for(int i = 1; i <= stacks.Count; i++)
     {
-        Console.Write(" " + i + "  ");
+        Console.Write($" {i}  ");
     }
     Console.WriteLine("\n-------------------");
 }
