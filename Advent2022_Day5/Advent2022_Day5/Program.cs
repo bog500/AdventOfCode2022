@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Text;
 
-Console.WriteLine("Advent of Code - Day 5");
+Console.WriteLine("Advent of Code 2022 - Day 5");
 Console.WriteLine("\n-------------------");
 
 
