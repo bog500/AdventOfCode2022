@@ -1,18 +1,8 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
-using System.Text;
-using System.IO;
-
-Console.WriteLine("Advent of Code 2022 - Day 7");
+﻿Console.WriteLine("Advent of Code 2022 - Day 7");
 Console.WriteLine("\n-------------------");
 
 
-
-
 var lines = File.ReadAllLines("clue.txt");
-
-
-
 
 Dir currentDir = new Dir()
 {
@@ -36,9 +26,7 @@ foreach (string line in lines)
             }
             else if (newFolder == "..")
             {
-                var split = currentDir.Path.Split('/');
-
-                string newPath = "/" + string.Join('/', split.Take(split.Count() - 1));
+                string newPath = "/" + string.Join('/', currentDir.Path.Split('/')[..^1]);
                 newPath = newPath.Replace("//", "/");
                 currentDir = directories.First(o => o.Path == newPath);
             }
@@ -50,11 +38,7 @@ foreach (string line in lines)
             }
         }
     }
-    else if(line.StartsWith("dir"))
-    {
-        // ignore
-    }
-    else
+    else if(!line.StartsWith("dir"))
     {
         //file
         int size = int.Parse(line.Split(' ').First());
@@ -66,17 +50,19 @@ foreach (string line in lines)
     }
 }
 
-int total = 0;
+int totalUsedSize = 0;
 
 foreach(var d in directories.Where(o => o.Size < 100000))
 {
-    total += d.Size;
+    totalUsedSize += d.Size;
 }
 
-Console.WriteLine("Part1:" + total);
+Console.WriteLine("Part1:" + totalUsedSize);
 
+//tota disk size = 70000000
 int available = 70000000 - directories.First(o => o.Path == "/").Size;
 
+//required free space = 30000000
 int smallest = directories.Where(o => o.Size >= (30000000 - available)).Min(o => o.Size);
 
 Console.WriteLine("Part2:" + smallest);
