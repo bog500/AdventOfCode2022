@@ -1,4 +1,6 @@
-﻿Console.WriteLine("Advent of Code 2022 - Day 9");
+﻿using System.Security.Cryptography.X509Certificates;
+
+Console.WriteLine("Advent of Code 2022 - Day 9");
 Console.WriteLine("\n-------------------");
 
 
@@ -88,6 +90,9 @@ Position GetNextPos(Position head, Position tail)
     return new Position(newTail.Item1, newTail.Item2);
 
 }
+
+
+
 
 class Position
 {
