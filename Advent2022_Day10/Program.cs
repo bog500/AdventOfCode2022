@@ -17,7 +17,6 @@ int currentX = 1;
 foreach (string line in lines)
 {
     string command = line.Split(' ').First();
-    int value = 0;
     if(command == "noop")
     {
         DoCycle();
@@ -27,7 +26,7 @@ foreach (string line in lines)
         DoCycle();
         DoCycle();
 
-        value = int.Parse(line.Split(' ').Last());
+        int value = int.Parse(line[5..]);
         currentX += value;
     }
 }
