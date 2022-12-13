@@ -1,0 +1,41 @@
+﻿ab                               aaaaaaaaaaaaaaaa  aaaaaaaa                                    aaaaaa
+ab                               aaaaaaaaaaaaaaaaa  aaaaaa                                      aaaaa
+ab                                 aaaaaaaa   aaaa  aaaaaa                    aaa                aaaa
+ab                                   aaaaaaa  aa    aaaaaa                    aaa                aaaa
+ab                             aaa   aaaaaaaa       aa  aa                    aaa                aaa 
+ab                             aaaaaaaaa aaaa               a  aa             iiaa  aaa          aa  
+ab        aa                  aaaaaaaaaa  aaa               aaaaa        a aiiiiijjaaaa              
+aba   aa  aa                 aaaaaaaaaa    a     aaaa        aaaaa       aaiiiiijjjjaaa      aa      
+aba   aaaaaa                 aaaaaaaa            aaaa       aaaaaa       aiiiioojjjjja   aaaaaa      
+ab     aaaaaaa                 aaaaaa    aa      aaaa       aaaa         iiinnoooojjjj   aaaaaaa     
+ab      aaaaa                  aaaaaa   aaaa      aaa         aaa       hiinnnooooojjjj   aaaaaaa    
+ab     aaaaa                   aa       aaaa                           hhiinnnuuoooojjjjk aaaaaaa    
+ab    aaa aa                            aaaa                  aaa    hhhhhnnntuuuoooojjkkkkaaaa      
+ab        aa                                                   aa  hhhhhhnnnnttuuuuoookkkkkkkaa      
+ab                   aa aa                                  aa aahhhhhhnnnnntttxuuuoopppppkkkka      
+ab                   aaaaa         a                        aaaaahhhhmnnnnntttxxxuuupppppppkkk       
+ab                    aaaaa     aaaa                         aaaghhhmmmmttttttxxxxuuuuuupppkkk       
+ab                   aaaaaaa    aaaaaa                        aagggmmmmtttttttxxxxuuuuuuvppkkk       
+ab                   aaaaaaaaaaa aaaaa                       aaagggmmmttttxxxxxxxyyyyyvvvppkkk       
+                      aaaaaaaaaaaaaaa                    aa aaaagggmmmtttxxxxxxxyyyyyyvvppplll       
+Sbcccccccccccccccccccaaaaaaaaaa a  aa                    aaaaa  gggmmmsssxxxx zzzyyyyvvvpplll        
+                    c  aaaaaa              aa aa        aaaaa    gggmmmsssxxxxyyyyyvvvvqqplll        
+ab                  c   aaaaaa             aaaa         aaaaaa   gggmmmmsssswwyyyyyvvvqqqlll         
+ab                  c  aaaaaaa            aaaaa           aaaa    gggmmmmsswwyyyyyyyvvqqllll         
+ab                  c  aaa  aaa           aaaaaa          a        gggooosswwwywwyyyvvqqlll          
+ab                  c   a                 a aaaa                   fffooosswwwwwwwwvvvqqqll          
+ab                  ccccccccccccccccccccccccaa                     fffooosswwwwwrwwvvvqqqll          
+ab                                         c                        ffooossswwwrrrwvvvqqqmm          
+ab    aaa                                  c                        ffooosssrrrrrrrrqqqqmmm          
+ab    aaa aa     aa    aaaa                c                        ffooossrrrrrnrrrqqqqmmm   aaa    
+ab     aaaaa  aaaaa   aaaaa                cccccccccccccccccccccc   fffoooorrnnnnnnmqqmmmmm   aaa    
+ab  aaaaaaaa   aaaaa  aaaaaa                                    c   fffooonnnnnnnnnmmmmmmm   aaa     
+ab   aaaaa     aaaaa  aaaaaa      aa                            c    fffoonnnnneddnmmmmmm    aaa     
+ab    aaaaa   aaaaa   aaaaaa     aaaaaa                    aa   c    ffeeeeeeeeedddddddd    aaaa     
+ab    aa aaa     aa     aa       aaaaaaa                aaaaa   c     eeeeeeeeeeddddddddd  a  aa     
+ab    aa                         aaaaaaa  aaa            aaaaa  c      eeeeeeeeaaaadEdddd            
+ab           aa                      aaaaaaaaa           aaaaa  c          aaaa aaaac              aa
+ab        aa aaa                     aaaaaaaa           aaaaa   c          aaa  aaaac             aaa
+ab        aaaaa                     a aaaaaa              aaa   c           a    aaac          a aaaa
+ab         aaaaaa                aaaaaaaaaaa                    c                  ac          aaaaaa
+ab       aaaaaaaa                aaaaaaaaaaaaa                  ccccccccccccccccccccc          aaaaaa
