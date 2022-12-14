@@ -29,7 +29,18 @@ void Part1(List<ElementPair> pairs)
 
 void Part2(List<ElementPair> pairs)
 {
+    Element six = Parser.Parse("6");
+    Element two = Parser.Parse("2");
 
+    List<Element> elements = pairs.Select(o => o.Left).Union(pairs.Select(o => o.Right)).ToList();
+    elements.AddRange(new []{ six, two });
+
+    elements.Sort();
+
+    int pos6 = elements.IndexOf(six) + 1;
+    int pos2 = elements.IndexOf(two) + 1;
+
+    Console.WriteLine($"Part 2: {pos6* pos2}");
 }
 
 List<ElementPair> Setup()
@@ -111,7 +122,7 @@ class Parser
     }
 }
 
-class Element
+class Element : IComparable
 {
     public Element? Parent;
 
@@ -146,6 +157,19 @@ class Element
         }
         s += "]";
         return s;
+    }
+
+    public int CompareTo(object? obj)
+    {
+        if (obj == null || obj.GetType() != typeof(Element))
+            return -1;
+
+        return Comparer.Compare(this, (Element)obj) switch
+        {
+            true => -1,
+            false => 1,
+            _ => 0
+        };
     }
 }
 
