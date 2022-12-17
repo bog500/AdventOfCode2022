@@ -27,11 +27,11 @@ State current = initial;
 
 using (Timer t = new())
 {
-    int deptSearch = 21;
-    Console.WriteLine($"Searching with dept {deptSearch}");
+    int depthSearch = 18;
+    Console.WriteLine($"Searching with depth {depthSearch}");
     while (current.Minutes < 30)
     {
-        current = Maximize(current, deptSearch);
+        current = Maximize(current, depthSearch);
         Console.WriteLine($"{current.Minutes}  {current.Action}  Total Preasure:{current.TotalPreasure}     {t.CurrentLap()}");
     }
 }
@@ -104,7 +104,7 @@ List<State> GetPossibilities(State state)
     {
         if(state.LastLocation == voisin)
         {
-
+            // useless roundtrip
         }
         else
         {
