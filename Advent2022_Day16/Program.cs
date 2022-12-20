@@ -11,47 +11,80 @@ string cluefile = "clue.txt";
 Dictionary<string, Valve> valves = Setup();
 
 
-State initial = new()
+State current = new()
 {
-    Action = "Initial",
-    History = "Initial",
-    Location = "AA",
+    ElfAction = "Initial",
+    ElfHistory = "Initial",
+    ElfLocation = "AA",
+
+    EleAction = "Initial",
+    EleHistory = "Initial",
+    EleLocation = "AA",
+
     PreasureRate = 0,
     TotalPreasure = 0,
     Minutes = 0,
     Value = 0,
-    Open = new()
+    Open = new(),
 };
 
-State current = initial;
 
 using (Timer t = new())
 {
     int depthSearch = 18;
     Console.WriteLine($"Searching with depth {depthSearch}");
-    while (current.Minutes < 30)
+    while (current.Minutes < 26)
     {
         current = Maximize(current, depthSearch);
-        Console.WriteLine($"{current.Minutes}  {current.Action}  Total Preasure:{current.TotalPreasure}     {t.CurrentLap()}");
+        Console.WriteLine($"{current.Minutes}  {current.ElfAction} {current.EleAction}  Total Preasure:{current.TotalPreasure}     {t.CurrentLap()}");
     }
 }
 
 
 
 
-int h = 5;
+nint h = 5;
+
+
+Stack<string> CopyStack(Stack<string> s)
+{
+    List<string> l = s.ToList();
+    l.Reverse();
+    return new(l);
+}
+
+//void Run(int minutes, int depthSearch, bool teachEle)
+//{
+//    using (Timer t = new())
+//    {
+//        Console.WriteLine($"Searching with depth {depthSearch}");
+//        while (current.Minutes < minutes)
+//        {
+//            current = Maximize(current, depthSearch, minutes, teachEle);
+//            Console.WriteLine($"{current.Minutes}  {current.ElfAction} {current.EleAction}  Total Preasure:{current.TotalPreasure}     {t.CurrentLap()}");
+//        }
+//    }
+//}
+
 
 State Maximize(State state, int depth)
 {
     //Console.WriteLine($"Maximize {depth}  {state.Action}");
 
     // stop evaluating
-    if (depth == 0 || state.Minutes == 30)
+    if (depth == 0 || state.Minutes == 26)
     {
-        state.Value += (30 - state.Minutes) * state.PreasureRate + state.TotalPreasure;
+        state.Value += (26 - state.Minutes) * state.PreasureRate + state.TotalPreasure;
         //Console.WriteLine($"Analyzed {state.History} with value of {state.Value}");
         return state;
     }
+
+    if (depth < 5 && state.Open.Count == 0)
+    {
+        // did't open any yet, abondon
+        return state;
+    }
+        
         
 
     int maxValue = -1;
@@ -78,55 +111,195 @@ List<State> GetPossibilities(State state)
 {
     List<State> possibilities = new();
 
-    Valve currentValve = valves[state.Location];
+    Valve elfValve = valves[state.ElfLocation];
+    Valve eleValve = valves[state.EleLocation];
 
-    if (state.Open.Contains(state.Location) == false && currentValve.Presure > 0)
+
+    // ################################################
+    #region both open valves 
+    if (state.Open.Contains(state.ElfLocation) == false 
+        && elfValve.Presure > 0
+        && state.Open.Contains(state.EleLocation) == false
+        && eleValve.Presure > 0
+        && state.ElfLocation != state.EleLocation
+        )
     {
-        // open current valve
+
         State nextState = new()
         {
-            Action = $"Open {state.Location}",
+            ElfAction = $"Elf Open {state.ElfLocation}",
             //History = state.History + " > " + $"Open {state.Location}",
-            Location = state.Location,
+            ElfLocation = state.ElfLocation,
+            ElfLastLocation = "Open",
+
+            EleAction = $"Ele Open {state.EleLocation}",
+            //History = state.History + " > " + $"Open {state.Location}",
+            EleLocation = state.EleLocation,
+            EleLastLocation = "Open",
+
             Minutes = state.Minutes + 1,
-            PreasureRate = state.PreasureRate + currentValve.Presure,
+            PreasureRate = state.PreasureRate + elfValve.Presure + eleValve.Presure,
             TotalPreasure = state.TotalPreasure + state.PreasureRate,
             Open = new(state.Open),
             Value = state.Value,
-            LastLocation = "Open"
+
         };
-        nextState.Open.Add(state.Location);
+
+        nextState.Open.Add(state.ElfLocation);
+        nextState.Open.Add(state.EleLocation);
         possibilities.Add(nextState);
     }
 
-    // move to another valve
-    foreach (string voisin in currentValve.Voisins)
+    #endregion
+
+
+    // ################################################
+    #region Elf Open | Ele move 
+    if (state.Open.Contains(state.ElfLocation) == false 
+        && elfValve.Presure > 0
+        )
     {
-        if(state.LastLocation == voisin)
+        foreach (string voisinEle in eleValve.Voisins)
         {
-            // useless roundtrip
-        }
-        else
-        {
-            Valve next = valves[voisin];
+
+            if (state.EleLastLocation == voisinEle)
+            {
+                // useless roundtrip
+                continue;
+            }
+
+            Valve nextEle = valves[voisinEle];
+
             State nextState = new()
             {
-                Action = $"Move to {voisin}",
+                ElfAction = $"Elf Open {state.ElfLocation}",
                 //History = state.History + " > " + $"Move to {voisin}",
-                Location = voisin,
+                ElfLocation = state.ElfLocation,
+                ElfLastLocation = "Open",
+
+                EleAction = $"Ele Move to {voisinEle}",
+                //History = state.History + " > " + $"Move to {voisin}",
+                EleLocation = voisinEle,
+                EleLastLocation = state.EleLocation,
+
                 Minutes = state.Minutes + 1,
-                PreasureRate = state.PreasureRate,
+                PreasureRate = state.PreasureRate + elfValve.Presure,
                 TotalPreasure = state.TotalPreasure + state.PreasureRate,
                 Open = new(state.Open),
                 Value = state.Value,
-                LastLocation = state.Location
+
             };
+
+            nextState.Open.Add(state.ElfLocation);
             possibilities.Add(nextState);
         }
-
-  
-
     }
+
+    #endregion
+
+    // ################################################
+    #region Elf move | Ele open 
+    if (state.Open.Contains(state.EleLocation) == false 
+        && eleValve.Presure > 0)
+    {
+        foreach (string voisin in elfValve.Voisins)
+        {
+
+            if (state.ElfLastLocation == voisin)
+            {
+                // useless roundtrip
+                continue;
+            }
+
+            Valve nextElf = valves[voisin];
+
+            State nextState = new()
+            {
+                ElfAction = $"Elf Move to {voisin}",
+                //History = state.History + " > " + $"Move to {voisin}",
+                ElfLocation = voisin,
+                ElfLastLocation = state.ElfLocation,
+
+                EleAction = $"Ele Open {state.ElfLocation}",
+                //History = state.History + " > " + $"Move to {voisin}",
+                EleLocation = state.EleLocation,
+                EleLastLocation = "Open",
+
+                Minutes = state.Minutes + 1,
+                PreasureRate = state.PreasureRate + eleValve.Presure,
+                TotalPreasure = state.TotalPreasure + state.PreasureRate,
+                Open = new(state.Open),
+                Value = state.Value,
+
+            };
+
+            nextState.Open.Add(state.EleLocation);
+            possibilities.Add(nextState);
+        }
+    }
+
+    #endregion
+
+    // ################################################
+
+
+
+    #region both move to another valve
+
+        foreach (string voisin in elfValve.Voisins)
+        {
+            if (state.ElfLastLocation == voisin)
+            {
+                // useless roundtrip
+                continue;
+            }
+
+            foreach (string voisinEle in eleValve.Voisins)
+            {
+
+                if (state.EleLastLocation == voisinEle)
+                {
+                    // useless roundtrip
+                    continue;
+                }
+
+                if (state.ElfLocation == voisinEle && state.EleLocation == voisin)
+                {
+                    //they switch place
+                    continue;
+                }
+
+                Valve nextElf = valves[voisin];
+                Valve nextEle = valves[voisinEle];
+
+                State nextState = new()
+                {
+                    ElfAction = $"Elf Move to {voisin}",
+                    //History = state.History + " > " + $"Move to {voisin}",
+                    ElfLocation = voisin,
+                    ElfLastLocation = state.ElfLocation,
+
+                    EleAction = $"Ele Move to {voisinEle}",
+                    //History = state.History + " > " + $"Move to {voisin}",
+                    EleLocation = voisinEle,
+                    EleLastLocation = state.EleLocation,
+
+                    Minutes = state.Minutes + 1,
+                    PreasureRate = state.PreasureRate,
+                    TotalPreasure = state.TotalPreasure + state.PreasureRate,
+                    Open = new(state.Open),
+                    Value = state.Value,
+
+                };
+                possibilities.Add(nextState);
+            }
+
+        }
+
+
+    #endregion
+    // ################################################
+
     return possibilities;
 }
 
@@ -189,15 +362,22 @@ class Valve
 
 class State
 {
-    public string Location;
+    
     public int TotalPreasure;
     public int Value;
     public int PreasureRate;
     public int Minutes;
     public HashSet<string> Open = new();
-    public string Action;
-    public string History;
-    public string LastLocation;
+
+    public string ElfLocation;
+    public string ElfAction;
+    public string ElfHistory;
+    public string ElfLastLocation;
+
+    public string EleLocation;
+    public string EleAction;
+    public string EleHistory;
+    public string EleLastLocation;
 }
 
 class Timer : IDisposable

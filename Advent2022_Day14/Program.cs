@@ -1,7 +1,7 @@
 ﻿Console.WriteLine("Advent of Code 2022 - Day 14");
 Console.WriteLine("\n-------------------");
 
-string cluefile = "clue.txt";
+string cluefile = "clue1.txt";
 
 Dictionary<(int X, int Y), Content> cave = new();
 
@@ -40,7 +40,7 @@ int Simulate()
     {
         canContinue = AddSand((500, 0));
         nbSand++;
-        //Print();
+        Print();
     }
 
     //Print();
